@@ -26,13 +26,14 @@ public class ProductoDAO implements CRUDProducto{
             rs=ps.executeQuery();
             while(rs.next()){
                 Producto pod=new Producto();
-                pod.setId(rs.getInt("Id"));
-                pod.setDni(rs.getString("DNI"));
-                pod.setNom(rs.getString("Nombres"));
-                pod.setApe(rs.getString("Apellidos"));
-                pod.setDir(rs.getString("Direccion"));
-                pod.setTel(rs.getString("Telefono"));
-                pod.setCor(rs.getString("Correo"));
+                pod.setIdPro(rs.getInt("Id de Producto"));
+                pod.setIdCat(rs.getInt("Id de Categoría"));
+                pod.setIdCar(rs.getInt("Id de Carrito"));
+                pod.setNmp(rs.getString("Nombre del Producto"));
+                pod.setWid(rs.getString("Ancho"));
+                pod.setHei(rs.getString("Alto"));
+                pod.setPri(rs.getInt("Precio"));
+                pod.setImP (rs.getString("Imagen del Producto"));
                 list.add(pod);
             }
         } catch (Exception e) {
@@ -48,22 +49,26 @@ public class ProductoDAO implements CRUDProducto{
             ps=con.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){                
-                p.setId(rs.getInt("Id"));
-                p.setDni(rs.getString("DNI"));
-                p.setNom(rs.getString("Nombres"));
-                p.setApe(rs.getString("Apellidos"));
-                p.setDir(rs.getString("Direccion"));
-                p.setTel(rs.getString("Telefono"));
-                p.setCor(rs.getString("Correo"));
+                pod.setIdPro(rs.getInt("Id de Producto"));
+                pod.setIdCat(rs.getInt("Id de Categoría"));
+                pod.setIdCar(rs.getInt("Id de Carrito"));
+                pod.setNmp(rs.getString("Nombre del Producto"));
+                pod.setWid(rs.getString("Ancho"));
+                pod.setHei(rs.getString("Alto"));
+                pod.setPri(rs.getInt("Precio"));
+                pod.setImP (rs.getString("Imagen del Producto"));
             }
         } catch (Exception e) {
         }
-        return p;
+        return pod;
     }
 
     @Override
-    public boolean add(Persona per) {
-       String sql="insert into persona(DNI, Nombres, Apellidos, Direccion, Telefono, Correo)values('"+per.getDni()+"','"+per.getNom()+"','"+per.getApe()+"','"+per.getDir()+"','"+per.getTel()+"','"+per.getCor()+"')";
+    public boolean add(Producto pod) {
+       String sql="insert into producto(Id de Producto, Id de Categoría, Id de Carrito, "
+               + "Nombre del Producto, Ancho, Alto, Precio, Imagen del Producto)values"
+               + "('"+pod.getIdPro()+"','"+pod.getIdCat()+"','"+pod.getIdCar()+"','"+pod.getNmp()+
+               "','"+pod.getWid()+"','"+pod.getHei()+"','"+pod.getPri()+"','"+pod.getImP()+"')";
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
@@ -74,8 +79,10 @@ public class ProductoDAO implements CRUDProducto{
     }
 
     @Override
-    public boolean edit(Persona per) {
-        String sql="update persona set DNI='"+per.getDni()+"',Nombres='"+per.getNom()+"',Apellidos='"+per.getApe()+"',Direccion='"+per.getDir()+"',Telefono='"+per.getTel()+"',Correo='"+per.getCor()+"' where Id="+per.getId();
+    public boolean edit(Producto pod) {
+        String sql="update producto set DNI='"+pod.getIdCat()+"',Id de Catergoría='"+per.getNom()+
+                "',Apellidos='"+per.getApe()+"',Direccion='"+per.getDir()+"',Telefono='"
+                +per.getTel()+"',Correo='"+per.getCor()+"' where Id="+per.getId();
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
@@ -87,7 +94,7 @@ public class ProductoDAO implements CRUDProducto{
 
     @Override
     public boolean eliminar(int id) {
-        String sql="delete from persona where Id="+id;
+        String sql="delete from producto where Id="+id;
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
