@@ -80,9 +80,9 @@ public class ProductoDAO implements CRUDProducto{
 
     @Override
     public boolean edit(Producto pod) {
-        String sql="update producto set DNI='"+pod.getIdCat()+"',Id de Catergoría='"+per.getNom()+
-                "',Apellidos='"+per.getApe()+"',Direccion='"+per.getDir()+"',Telefono='"
-                +per.getTel()+"',Correo='"+per.getCor()+"' where Id="+per.getId();
+        String sql="update producto set DNI='"+pod.getIdCat()+"',Id de Catergoría='"+pod.getIdCat()+
+                "',Id de Carrito='"+pod.getIdCar()+"',Nombre del Producto='"+pod.getNmp()+"',Ancho='"
+                +pod.getWid()+"',Alto='"+pod.getHei()+"' Precio="+pod.getPri();
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
